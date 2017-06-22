@@ -23,7 +23,15 @@ Headings are `## version-number space date`
 No structure is imposed on the version number or date at least for now
 ```
 
-## CLI
+## CLI Usage`
+
+```
+changelog < filein
+```
+
+will read `stdin` validate and remit the changelog.
+
+You can modify this behavior with:
 
 ```
 $ changelog -help
@@ -33,7 +41,7 @@ Usage of changelog:
   -last-version
     	Show last version only
   -no-comments
-    	Error if HTML comments are found
+    	Error if HTML comments are found in changelog
   -no-unreleased
     	Error if an unreleased section is present
 ```
@@ -49,6 +57,7 @@ Pull requests very welcome!
 * Sort by version
 * Sort by date
 * JSON output
+* Make the unreleased section be more robust.  Right now it must be `## Unreleased` case sensitive.
 * Handle markdown in markers.  Often version is a markdown link
     ```
     ## [v1.1.16](https://github.com/chef/chef-dk/tree/v1.1.16) (2016-12-14)
