@@ -11,8 +11,14 @@ import (
 	"github.com/signalsciences/changelog"
 )
 
+var (
+	// goreleaser alters this to be the right version number
+	version = "dev"
+)
+
 func main() {
 	var (
+		flagShowVersion  = flag.Bool("version", false, "Show version and exit")
 		flagLastVersion  = flag.Bool("last-version", false, "Show last version only")
 		flagLastEntry    = flag.Bool("last-entry", false, "Show last entry only")
 		flagNoUnreleased = flag.Bool("no-unreleased", false, "Error if an unreleased section is present")
@@ -21,6 +27,11 @@ func main() {
 	)
 
 	flag.Parse()
+
+	if *flagShowVersion {
+		fmt.Println(version)
+		return
+	}
 
 	raw, err := ioutil.ReadAll(os.Stdin)
 	if err != nil {
