@@ -8,6 +8,11 @@ build: hooks  ## build and lint changelog
 test: hooks ## run all tests
 	go test .
 
+clean:  ## clean up time
+	rm -rf dist/ bin/
+	go clean ./...
+	git gc --aggressive
+
 ci: ## run tests like travis.ci
 	./scripts/travis.sh
 
