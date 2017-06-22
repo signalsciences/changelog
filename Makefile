@@ -1,27 +1,15 @@
 
-install:  ## install changelog into GOPATH/bin
+install: hooks ## install changelog into GOPATH/bin
 	go install ./cmd/changelog
 
 build: hooks  ## build and lint changelog
-	go install ./cmd/changelog
-	gometalinter \
-                 --vendor \
-                 --deadline=60s \
-                 --disable-all \
-                 --enable=vet \
-                 --enable=golint \
-                 --enable=gofmt \
-		 --enable=goimports \
-                 --enable=gosimple \
-                 --enable=staticcheck \
-                 --enable=ineffassign \
-                 ./...
+	./scripts/build.sh
+
+test: hooks ## run all tests
 	go test .
 
-test:  ## run all tests
-	go test .
-
-ci: build install test ## run tests like travis.ci
+ci: ## run tests like travis.ci
+	./scripts/travis.sh
 
 # https://www.client9.com/automatically-install-git-hooks/
 .git/hooks/pre-commit: scripts/pre-commit.sh

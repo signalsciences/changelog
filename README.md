@@ -45,6 +45,7 @@ Pull requests very welcome!
 * Validate version using https://github.com/Masterminds/semver
 * Validate date using https://golang.org/pkg/time/
     * allow parenthesis around date e.g. `v1.2.3 (2107-06-21)`
+    * or more generally, allow a template to parse/emit headers
 * Sort by version
 * Sort by date
 * JSON output
@@ -53,6 +54,6 @@ Pull requests very welcome!
     ## [v1.1.16](https://github.com/chef/chef-dk/tree/v1.1.16) (2016-12-14)
     ```
 
-If you want to see other examples try this search:
+If you want to see other examples of changelogs try this search:
 [site:github.com changelog.md]( https://www.google.com/search?&q=site:github.com+changelog.md&ie=UTF-8&oe=UTF-8#q=site:github.com+changelog.md)
 
