@@ -13,7 +13,7 @@ type Entry struct {
 	Notes   string
 }
 
-// MarshalText satifies the TextMarshaler interface
+// MarshalText satisfies the TextMarshaler interface
 func (e Entry) MarshalText() ([]byte, error) {
 	buf := bytes.Buffer{}
 	buf.WriteString("## " + e.Version + " " + e.Date + "\n\n")
@@ -43,7 +43,7 @@ func (cl ChangeLog) Top() Entry {
 	return cl.Released[0]
 }
 
-// MarshalText satifies the TextMarshaler interface
+// MarshalText satisfies the TextMarshaler interface
 func (cl ChangeLog) MarshalText() ([]byte, error) {
 	buf := bytes.Buffer{}
 	buf.WriteString(cl.Intro)
