@@ -59,7 +59,6 @@ Pull requests very welcome!
 * Sort by version
 * Sort by date
 * JSON output
-* Make the unreleased section be more robust.  Right now it must be `## Unreleased` case sensitive.
 * Handle markdown in markers.  Often version is a markdown link
     ```
     ## [v1.1.16](https://github.com/chef/chef-dk/tree/v1.1.16) (2016-12-14)
