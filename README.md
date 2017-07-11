@@ -1,7 +1,7 @@
 # changelog
 tools to help manage markdown changelogs
 
-[![Build Status](https://travis-ci.org/signalsciences/changelog.svg?branch=master)](https://travis-ci.org/signalsciences/changelog)
+[![GoDoc](https://godoc.org/github.com/signalsciences/changelog?status.svg)](https://godoc.org/github.com/signalsciences/changelog) [![Build Status](https://travis-ci.org/signalsciences/changelog.svg?branch=master)](https://travis-ci.org/signalsciences/changelog)
 
 The parses and emits a simple markdown-like changelog.
 
