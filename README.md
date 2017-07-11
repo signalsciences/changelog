@@ -25,7 +25,7 @@ Headings are `## version-number space date`
 No structure is imposed on the version number or date at least for now
 ```
 
-## CLI Usage`
+## CLI Usage
 
 ```
 changelog < filein
