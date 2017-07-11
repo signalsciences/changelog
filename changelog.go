@@ -107,7 +107,7 @@ func Parse(raw string) (ChangeLog, error) {
 		}
 
 		// Unreleased can only be the first entry
-		if parts[0] == "Unreleased" {
+		if strings.HasPrefix(strings.ToLower(strings.TrimSpace(parts[0])), "unreleased") {
 			if n != 0 {
 				return cl, fmt.Errorf("Got an unreleased section multiple times")
 			}
