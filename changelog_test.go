@@ -1,6 +1,8 @@
 package changelog
 
 import (
+	"bytes"
+	"log"
 	"reflect"
 	"testing"
 )
@@ -79,4 +81,31 @@ func TestMostRecent(t *testing.T) {
 	if !reflect.DeepEqual(got, want) {
 		t.Errorf("cl.MostRecent = %v, want %v", got, want)
 	}
+}
+
+func TestMarshalText(t *testing.T) {
+	cl := ChangeLog{
+		Unreleased: "unreleased test",
+		Released: []Entry{
+			{"1.2.3", "2017-01-01", "notes"},
+		},
+	}
+	b, err := cl.MarshalText()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	want := []byte(`
+## Unreleased
+
+unreleased test
+
+## 1.2.3 2017-01-01
+
+notes
+`)
+	if !bytes.Equal(b, want) {
+		t.Errorf("cl.MarshalText() = %q, want %q", string(b), string(want))
+	}
+
 }
