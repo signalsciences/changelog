@@ -25,6 +25,42 @@ Headings are `## version-number space date`
 No structure is imposed on the version number or date at least for now
 ```
 
+## Examples
+
+```
+        t := `
+# name of product
+
+any text or none
+
+## Unreleased
+
+This section is optional
+
+## 1.2.3 2017-01-01
+
+No structure is imposed on the version number or date at least for now 
+
+## 1.2.2 2017-01-01
+
+First
+`
+        cl, err := changelog.Parse(t)
+        if err != nil {
+                log.Fatal(err)
+        }   
+
+        fmt.Println(cl.Top())
+```
+
+Output:
+
+```
+## 1.2.3 2017-01-01
+
+No structure is imposed on the version number or date at least for now
+```
+
 ## CLI Usage
 
 ```
