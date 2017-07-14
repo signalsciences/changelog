@@ -79,9 +79,11 @@ Usage of changelog:
   -last-version
     	Show last version only
   -no-comments
-    	Error if HTML comments are found in changelog
+    	Error if HTML comments are found
   -no-unreleased
     	Error if an unreleased section is present
+  -version
+    	Show version and exit
 ```
 
 ## Ideas
