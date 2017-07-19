@@ -1,3 +1,4 @@
+// Package changelog provides functionality for managing markdown changelogs
 package changelog
 
 import (
