@@ -19,12 +19,12 @@ Most if not all of this should be semi-automated.
 2. Tag locally 
 
     ```bash
-    git tag -a vLASTVERSION -m "First release"
+    git tag -a vNEWVERSION -m "tag version XYZ"
     ```
 
 3. Push
 
     ```bash
-    git push origin LASTVERSION
+    git push origin NEWVERSION
     ```
 
