@@ -8,6 +8,7 @@ import (
 	"strings"
 )
 
+// ErrNoEntryFound is the error returned in FindByVersion if there is no entry for the argument
 var ErrNoEntryFound = errors.New("No log entry found")
 
 // Entry represents a single changelog entry
