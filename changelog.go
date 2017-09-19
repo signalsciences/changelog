@@ -3,9 +3,12 @@ package changelog
 
 import (
 	"bytes"
+	"errors"
 	"fmt"
 	"strings"
 )
+
+var ErrNoEntryFound = errors.New("No log entry found")
 
 // Entry represents a single changelog entry
 type Entry struct {
@@ -42,6 +45,18 @@ func (cl ChangeLog) Top() Entry {
 		return Entry{}
 	}
 	return cl.Released[0]
+}
+
+// FindByVersion returns the Entry at the particular version,
+// or empty if not found
+func (cl ChangeLog) FindByVersion(version string) (Entry, error) {
+	for i := range cl.Released {
+		if cl.Released[i].Version == version {
+			return cl.Released[i], nil
+		}
+	}
+
+	return Entry{}, ErrNoEntryFound
 }
 
 // MarshalText satisfies the TextMarshaler interface

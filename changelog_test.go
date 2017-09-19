@@ -83,6 +83,29 @@ func TestMostRecent(t *testing.T) {
 	}
 }
 
+func TestFindByVersion(t *testing.T) {
+	cl, err := Parse(raw1)
+	if err != nil {
+		t.Error(err)
+	}
+
+	want := Entry{"1.2.0", "2016-01-01", "First Release"}
+	got, err := cl.FindByVersion("1.2.0")
+
+	if err != nil {
+		t.Error(err)
+	}
+
+	if !reflect.DeepEqual(want, got) {
+		t.Errorf("cl.FindByVersion = %v, want %v", got, want)
+	}
+
+	_, err = cl.FindByVersion("not found")
+	if err == nil {
+		t.Error("err should not be nil")
+	}
+}
+
 func TestMarshalText(t *testing.T) {
 	cl := ChangeLog{
 		Unreleased: "unreleased test",
