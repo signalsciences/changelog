@@ -5,11 +5,18 @@ import (
 	"bytes"
 	"errors"
 	"fmt"
+	"log"
+	"sort"
 	"strings"
+
+	version "github.com/hashicorp/go-version"
 )
 
 // ErrNoEntryFound is the error returned in FindByVersion if there is no entry for the argument
 var ErrNoEntryFound = errors.New("No log entry found")
+
+// ErrInvalidRange is returned in the event that the args for GetRange are invalid
+var ErrInvalidRange = errors.New("Invalid upper or lower bound arguments for range")
 
 // Entry represents a single changelog entry
 type Entry struct {
@@ -25,9 +32,16 @@ type ByVersion []Entry
 func (b ByVersion) Len() int      { return len(b) }
 func (b ByVersion) Swap(i, j int) { b[i], b[j] = b[j], b[i] }
 func (b ByVersion) Less(i, j int) bool {
+	v1, err := version.NewVersion(b[i].Version)
+	if err != nil {
+		log.Printf("b[i].Version %s invalid", b[i].Version)
+	}
+	v2, err := version.NewVersion(b[j].Version)
+	if err != nil {
+		log.Printf("b[j].Version %s invalid", b[j].Version)
+	}
 
-	return b[i].Version < b[j].Version
-
+	return v1.LessThan(v2)
 }
 
 // MarshalText satisfies the TextMarshaler interface
@@ -51,12 +65,29 @@ type ChangeLog struct {
 	Released   []Entry
 }
 
-// // GetRange returns a slice of Entries ranging from one version number and up
-// // and including another version. The
-// func (cl ChangeLog) GetRange(from, to string) []Entry {
-// 	// sort the array
-//
-// }
+// GetRange returns a slice of Entries ranging from one version number and up
+// and including another version. The
+func (cl ChangeLog) GetRange(from, to string) ([]Entry, error) {
+	// sort the array
+	sort.Sort(ByVersion(cl.Released))
+
+	fromIdx, toIdx := -1, -1
+	for i, e := range cl.Released {
+		if e.Version == from {
+			fromIdx = i
+		} else if e.Version == to {
+			toIdx = i
+		}
+	}
+
+	if fromIdx == -1 || toIdx == -1 {
+		return []Entry{}, ErrInvalidRange
+	}
+
+	sub := ByVersion(cl.Released[fromIdx+1 : toIdx+1])
+	sort.Sort(sort.Reverse(sub))
+	return sub, nil
+}
 
 // Top returns the first entry listed in the file
 // (and not first release, oldest)

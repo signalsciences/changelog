@@ -41,6 +41,31 @@ Last Release, invalid, missing date
 First Release
 `
 
+var raw3 = `# Big Changelog
+
+introduction stuff
+
+## Unreleased
+
+whatever
+
+## 1.2.3 2016-01-04
+
+Last Release
+
+## 1.2.2 2016-01-03
+
+Release 3
+
+## 1.2.1 2016-01-02
+
+Release 2
+
+## 1.2.0 2016-01-01
+
+First Release
+`
+
 func TestCLParse(t *testing.T) {
 	cl, err := Parse(raw1)
 	if err != nil {
@@ -106,42 +131,40 @@ func TestFindByVersion(t *testing.T) {
 	}
 }
 
-// func TestGetRange(t *testing.T) {
-// 	raw := `# Big Changelog
-//
-// 	introduction stuff
-//
-// 	## 1.2.3 2016-01-01
-//
-// 	Last Release
-//
-// 	## 1.2.2 2016-01-01
-//
-// 	Release 3
-//
-// 	## 1.2.1 2016-01-01
-//
-// 	Release 2
-//
-// 	## 1.2.0 2016-01-01
-//
-// 	First Release
-// 	`
-//
-// 	cl, err := Parse(raw)
-// 	if err != nil {
-// 		t.Errorf(err)
-// 	}
-//
-// 	want := []Entry{
-// 		{"1.2.3", "2016-01-01", "Last Release"},
-// 		{"1.2.2", "2016-01-01", "Release 3"},
-// 		{"1.2.1", "2016-01-01", "Release 2"},
-// 	}
-//
-// 	got := cl.GetRange("1.2.0", "1.2.3")
-//
-// }
+func TestGetRange(t *testing.T) {
+	cl, err := Parse(raw3)
+	if err != nil {
+		t.Error(err)
+	}
+
+	want := []Entry{
+		{"1.2.3", "2016-01-04", "Last Release"},
+		{"1.2.2", "2016-01-03", "Release 3"},
+		{"1.2.1", "2016-01-02", "Release 2"},
+	}
+
+	got, err := cl.GetRange("1.2.0", "1.2.3")
+	if err != nil {
+		t.Error(err)
+	}
+
+	if !reflect.DeepEqual(want, got) {
+		t.Errorf("t.GetRange: wanted %v, got %v", want, got)
+	}
+
+	// if from or to are invalid, return error
+
+	_, err = cl.GetRange("1.1.1", "1.2.3")
+	if err == nil {
+		t.Error("should have err")
+	}
+
+	_, err = cl.GetRange("1.2.0", "1.2.4")
+	if err == nil {
+		t.Error("should have err")
+	}
+
+}
 
 func TestMarshalText(t *testing.T) {
 	cl := ChangeLog{
