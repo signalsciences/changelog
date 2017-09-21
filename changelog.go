@@ -18,6 +18,18 @@ type Entry struct {
 	Notes   string
 }
 
+// ByVersion ...
+type ByVersion []Entry
+
+// Len ...
+func (b ByVersion) Len() int      { return len(b) }
+func (b ByVersion) Swap(i, j int) { b[i], b[j] = b[j], b[i] }
+func (b ByVersion) Less(i, j int) bool {
+
+	return b[i].Version < b[j].Version
+
+}
+
 // MarshalText satisfies the TextMarshaler interface
 func (e Entry) MarshalText() ([]byte, error) {
 	buf := bytes.Buffer{}
@@ -38,6 +50,13 @@ type ChangeLog struct {
 	Unreleased string
 	Released   []Entry
 }
+
+// // GetRange returns a slice of Entries ranging from one version number and up
+// // and including another version. The
+// func (cl ChangeLog) GetRange(from, to string) []Entry {
+// 	// sort the array
+//
+// }
 
 // Top returns the first entry listed in the file
 // (and not first release, oldest)

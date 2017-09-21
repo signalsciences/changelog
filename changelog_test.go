@@ -106,6 +106,43 @@ func TestFindByVersion(t *testing.T) {
 	}
 }
 
+// func TestGetRange(t *testing.T) {
+// 	raw := `# Big Changelog
+//
+// 	introduction stuff
+//
+// 	## 1.2.3 2016-01-01
+//
+// 	Last Release
+//
+// 	## 1.2.2 2016-01-01
+//
+// 	Release 3
+//
+// 	## 1.2.1 2016-01-01
+//
+// 	Release 2
+//
+// 	## 1.2.0 2016-01-01
+//
+// 	First Release
+// 	`
+//
+// 	cl, err := Parse(raw)
+// 	if err != nil {
+// 		t.Errorf(err)
+// 	}
+//
+// 	want := []Entry{
+// 		{"1.2.3", "2016-01-01", "Last Release"},
+// 		{"1.2.2", "2016-01-01", "Release 3"},
+// 		{"1.2.1", "2016-01-01", "Release 2"},
+// 	}
+//
+// 	got := cl.GetRange("1.2.0", "1.2.3")
+//
+// }
+
 func TestMarshalText(t *testing.T) {
 	cl := ChangeLog{
 		Unreleased: "unreleased test",
