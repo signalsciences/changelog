@@ -68,6 +68,19 @@ type ChangeLog struct {
 // GetRange returns a slice of Entries ranging from one version number and up
 // and including another version. The
 func (cl ChangeLog) GetRange(from, to string) ([]Entry, error) {
+	fromVersion, err := version.NewVersion(from)
+	if err != nil {
+		return []Entry{}, ErrInvalidRange
+	}
+
+	toVersion, err := version.NewVersion(to)
+	if err != nil {
+		return []Entry{}, ErrInvalidRange
+	}
+
+	if fromVersion.GreaterThan(toVersion) {
+		return []Entry{}, ErrInvalidRange
+	}
 	// sort the array
 	sort.Sort(ByVersion(cl.Released))
 

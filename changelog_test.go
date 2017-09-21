@@ -164,6 +164,11 @@ func TestGetRange(t *testing.T) {
 		t.Error("should have err")
 	}
 
+	// if to is higher than from, err
+	_, err = cl.GetRange("1.2.3", "1.2.0")
+	if err == nil {
+		t.Error("should err")
+	}
 }
 
 func TestMarshalText(t *testing.T) {
